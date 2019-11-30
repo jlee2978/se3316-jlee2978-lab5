@@ -336,3 +336,374 @@ router.route('/deleteuser/:loginid')
     });
 
 
+// SONG API routes
+
+// POST Route: Create a new song
+// accessed http://localhost:8080/api/createsong with POST method
+// createsong is the noun + verb
+router.route('/createsong')
+
+    // create a song
+    .post(function (req, res) {
+        // define a null error object
+        var error = {};
+
+        // create an instance of song model
+        var song = new Song();
+
+        // song info is POSTed in the request body
+        // assign the corresponding properties to song
+        song.title = req.body.title;
+        song.artist = req.body.artist;
+        song.album = req.body.album;
+        song.year = req.body.year;
+        song.comment = req.body.comment;
+        song.track = req.body.track;
+        song.genre = req.body.genre;
+        song.hidden = "N";
+
+        // front end will map req.body.note to review.note
+        if (req.body.note) {
+            song.rating = 1;
+        }
+        else{
+            song.rating = 0;
+        }
+
+        song.loginid = req.body.loginid;
+
+        error = { code: 0, message: 'Song created successfully' };
+
+        // log a create message to the console
+        console.log('Song ' + JSON.stringify(song) + ' created!');
+
+        // call the song object to save that song instance
+        song.save(function (err, result) {
+            console.log('Create song: ' + err);
+            if (err) {
+                error = { code: -1, message: 'Failed to create a song record' };
+            } else {
+
+                // add review if there is any						
+                if (req.body.note || req.body.review_rating) {
+                    var review = new Review();
+                    review.songid = song._id;
+                    review.note = req.body.note;
+                    review.rating = req.body.review_rating;
+                    review.date = getDateTime(); // year + '-' + month + '-' + day;
+                    review.loginid = req.body.loginid;
+
+                    addReview(review);
+                }
+
+                error = { code: 0, message: 'song is created successfully!' };
+            }
+
+            // since this is a new song, mongoDB will return an implicit _id property to the song
+            // _id is kept in the front end page to identify the song for update/delete
+            // prepare the response
+            response = { error: error, song: song };
+
+            res.json(response);
+        });
+
+    });
+
+// PUT ROUTE: To update a song
+// accessed http://localhost:8080/api/updatesong/:songid with PUT method
+// updatesong is the noun + verb
+router.route('/updatesong/:songid')
+    // update the song with this id
+    .put(function (req, res) {
+
+        var error = {};
+
+        // Use findById to ensure the song exists in the database for update since the same song might have been deleted by other song
+        Song.findById(req.params.songid, function (err, song) {
+
+            if (err) {
+                error = { code: -1, message: err };
+
+                // if there is an error to locate the song
+                // package response with error
+                res.json({ error: error });
+                return;
+            }
+
+            // if song exists, assign song properties update song properties with those in the request body correspondingly
+            song.title = req.body.title;
+            song.artist = req.body.artist;
+            song.album = req.body.album;
+            song.year = req.body.year;
+            song.comment = req.body.comment;
+            song.track = req.body.track;
+            song.genre = req.body.genre;
+            song.hidden = req.body.hidden;
+            song.loginid = req.body.loginid;
+
+            if (req.body.note) {
+                // increase number of ratings of the song by 1
+                song.rating = song.rating + 1;
+            }
+
+            Review.find({ "songid": { $eq: song._id } }, function (err, reviews) {
+                if (err) {
+                    // res.send(err);
+                    error = { code: -1, message: err };
+                }
+                else {
+                    error = { code: 0, message: 'Review records retrieved' };
+                }
+
+                // log an update message to the console
+                console.log('Update Song: ' + JSON.stringify(song));
+
+                // save the song
+                song.save(function (err) {
+                    if (err) {
+                        error = { code: -1, message: err };
+                    }
+                    else {
+                        // add review if there is any
+                        if (req.body.note || req.body.review_rating) {
+
+                            var review = new Review();
+                            review.songid = song._id;
+                            review.note = req.body.note;
+                            review.rating = req.body.review_rating;
+                            review.date = getDateTime();    //year + '-' + month + '-' + day;
+                            review.loginid = req.body.loginid;
+
+                            addReview(review);
+                        }
+                        error = { code: 0, message: 'record updated successfully!' };
+                    }
+
+                    // return the response
+                    // note: we don't need the song object as it is in the front end page
+                    res.json({ error: error });
+                });
+            });
+        });
+    });
+
+// GET Route: To get songs per login
+// accessed http://localhost:8080/api/getsongs with GET method
+// getsongs is the noun + verb
+router.route('/getsongs/:loginid')
+    .post(function (req, res) {
+        var error = {};
+
+        // log a get message to the console
+        console.log('Get songs ' + JSON.stringify(req.body) + ' per loginid ' + req.params.loginid);
+
+        var criteria = [];
+
+        if (req.body.title) {
+            criteria.push({ "title": { $regex: req.body.title, $options: 'i' } });
+        }
+
+        if (req.body.artist) {
+            criteria.push({ "artist": { $regex: req.body.artist, $options: 'i' } });
+        }
+
+        if (req.body.album) {
+            criteria.push({ "album": { $regex: req.body.album, $options: 'i' } });
+        }
+
+        if (req.body.year) {
+            criteria.push({ "year": { $eq: req.body.year } });
+        }
+
+        if (req.body.comment) {
+            criteria.push({ "comment": { $regex: req.body.comment, $options: 'i' } })
+        }
+
+        if (req.body.track) {
+            criteria.push({ "track": { $eq: req.body.track } });
+        }
+
+        if (req.body.genre) {
+            criteria.push({ "genre": { $eq: req.body.genre } });
+        }
+
+        // if logged in, get songs per loginid or all songs for admin
+        if (req.params.loginid !== 'null' && req.params.loginid !== null) {
+            // get user info to determine user role
+            User.find({ "loginid": { $eq: req.params.loginid } }, function (err, user) {
+                // get all songs
+                Song.find(
+                    function (err, songs) {
+                        if (err) {
+                            songs = [];
+                            error = { code: -1, message: err };
+                        }
+                        else {
+                            // according to requirement for anonymous user, return up to 10 songs
+                            if (req.params.loginid == 'null' || req.params.loginid == null) {
+                                songs.splice(10);
+                            }
+                            error = { code: 0, message: 'Song records are retrieved successfully!' };
+                        }
+
+                        // return the response
+                        res.json({ error: error, songs: songs });
+                    }).sort({ "rating": -1 });
+                }
+            );
+        }
+        else {
+            // not logged in, get 1st 10 songs, front-end needs to disable editability
+            criteria.push({ hidden: "N" });
+            Song.find({ $and: criteria }, function (err, songs) {
+                if (err) {
+                    songs = [];
+                    error = { code: -1, message: err };
+                }
+                else {
+                    // according to requirement for anonymous user, return up to 10 songs
+                    if (req.params.loginid == 'null' || req.params.loginid == null) {
+                        songs.splice(10);
+                    }
+                    error = { code: 0, message: 'Song records are retrieved successfully!' };
+                }
+
+                // return the response
+                res.json({ error: error, songs: songs });
+            }).sort({ "rating": -1 });
+        }
+    });
+
+// GET ROUTE: To get a single song per id
+// accessed http://localhost:8080/api/getsong/:songid with GET method
+// :songid is the request parameter
+// getsong is the noun + verb
+router.route('/getsong/:songid')
+
+    // get the song with that id
+    .get(function (req, res) {
+        var error = {};
+        var song = new Song();
+
+        // log a get message to the console
+        console.log('Get a song');
+
+        // the supplied id is embedded in the songid (same name as in the url)
+        // request params object i.e. req.params.songid
+        Song.find({ "loginid": { $eq: req.params.songid } }, function (err, song) {
+            if (err) {
+                error = { code: -1, message: err };
+            }
+            else {
+                error = { code: 0, message: '1 record retrieved' };
+            }
+
+            // return the response
+            res.json({ error: error, song: song });
+        });
+    });
+
+// GET ROUTE: To get reviews per song id
+// accessed http://localhost:8080/api/getreviews/:songid with GET method
+// :songid is the request parameter
+// getsong is the noun + verb
+router.route('/getreviews/:songid')
+
+    // get the song with that id
+    .get(function (req, res) {
+        var error = {};
+
+        // log a get message to the console
+        console.log('Get reviews for a song');
+
+        // the supplied id is embedded in the songid (same name as in the url)
+        //  request params object i.e. req.params.songid
+        // song.findById(req.params.songid, function (err, song) {
+        Review.find({ "songid": { $eq: req.params.songid } }, function (err, reviews) {
+            if (err) {
+                // res.send(err);
+                error = { code: -1, message: err };
+            }
+            else {
+                error = { code: 0, message: 'Record(s) retrieved' };
+            }
+
+            // return the response
+            res.json({ error: error, reviews: reviews });
+        }).sort({ "date": -1 });;
+    });
+
+
+// GET Route: To get song reviews
+// accessed http://localhost:8080/api/getreviews/:songid with GET method
+// getreviews/:songid is the noun + verb
+router.route('/getreviews/:songid')
+    // get all the review per songid 
+    .get(function (req, res) {
+        var error = {};
+        var reviews = [];
+
+        // log a get message to the console
+        console.log('Get songs');
+
+        Review.find({ "songid": { $eq: req.params.songid } }, function (err, reviews) {
+            if (err) {
+                reviews = [];
+                error = { code: -1, message: err };
+            }
+            else {
+                error = { code: 0, message: 'reviews records are retrieved successfully!' };
+            }
+
+            // return the response
+            res.json({ error: error, reviews: reviews });
+        });
+    });
+
+function getDateTime() {
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var hr = date.getHours();
+    var min = date.getMinutes();
+    var sec = date.getSeconds();
+
+    if (month < 10) {
+        month = '0' + month;
+    }
+
+    if (day < 10) {
+        day = '0' + day;
+    }
+
+    if (hr < 10) { hr = '0' + hr; }
+
+    if (min < 10) { min = '0' + min; }
+
+    if (sec < 10) { sec = '0' + sec; }
+
+    return year + '-' + month + '-' + day + ' ' + hr + ':' + min + ':' + sec;
+}
+
+function addReview(review) {
+    // define a null error object
+    var error = {};
+
+    error = { code: 0, message: 'review created successfully' };
+
+    // log a create message to the console
+    console.log('Create review ' + JSON.stringify(review));
+
+    // call the review object to save that review instance
+    review.save(function (err, result) {
+        if (err) {
+            error = { code: -1, message: 'Fail to create a review record' };
+        } else {
+            error = { code: 0, message: 'review is created successfully!' };
+        }
+
+        // since this is a new review, mongoDB will return an implicity _id property to the review
+        // _id is kept in the front end page to identify the review for update/delete
+    });
+}    

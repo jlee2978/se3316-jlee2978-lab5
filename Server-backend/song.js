@@ -11,9 +11,9 @@ var SongSchema   = new Schema({
 	album: String,		// 30 char
 	year: Number,       // 4 char
 	comment: String,	// 30 char
-	//track: Number,
+	track: Number,      // included in ID3v1.1
 	genre: Number,      // 1 byte
-	rating: Number,
+	rating: Number,     // holds number of ratings/reviews
 	hidden: String,	// Y or N
     loginid: String, //indicates who submitted
 });
