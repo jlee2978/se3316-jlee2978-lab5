@@ -15,6 +15,7 @@ import { MaterialModule } from './material.module';
 import { ApiService } from './api.service';
 import { AuthenticationService } from './authentication.service';
 import { AdminGuard } from './admin.guard';
+import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AdminGuard } from './admin.guard';
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule
   ],
   providers: [
     ApiService,
