@@ -3,15 +3,18 @@ import { Routes, RouterModule } from '@angular/router';
 import {AboutComponent} from './about/about.component';
 import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
-import {MembersComponent} from './members/members.component';
+import {UserComponent} from './user/user.component';
 import {PagenotfoundComponent} from './pagenotfound/pagenotfound.component';
 import {SignupComponent} from './signup/signup.component';
+import {SongComponent} from './song/song.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'Home', component: HomeComponent },
   { path: 'About', component: AboutComponent },
   { path: 'Login', component: LoginComponent },
-  { path: 'Members', component: MembersComponent },
+  { path: 'User', component: UserComponent },
+  { path: 'Song', component: SongComponent },
   { path: 'Pagenotfound', component: PagenotfoundComponent },
   { path: 'Signup', component: SignupComponent },
 ];

@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,9 +7,11 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
-import { MembersComponent } from './members/members.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { FormsModule } from '@angular/forms';
+import { SongComponent } from './song/song.component';
+import { UserComponent } from './user/user.component';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -19,14 +20,16 @@ import { FormsModule } from '@angular/forms';
     SignupComponent,
     AboutComponent,
     HomeComponent,
-    MembersComponent,
-    PagenotfoundComponent
+    PagenotfoundComponent,
+    SongComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

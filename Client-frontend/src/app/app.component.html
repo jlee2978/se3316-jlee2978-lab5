@@ -1,18 +1,19 @@
-<header>
-  <div class="container">
-    <a href="#" class="logo">Application</a>
-    <nav>
-      <ul>
-        <li><a href="$" routerLink="/">Home</a></li>
-        <li><a href="$" routerLink="/About">About</a></li>
-        <li><a href="$" routerLink="/Login">Login</a></li>
-        <li><a href="$" routerLink="/Members">Members</a></li>
-        <li><a href="$" routerLink="/Signup">Signup</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <h1 id="title"> Music Reviews </h1>
+    <span class="menu-spacer"></span>
+    <div id='toolbar'>
+      <a mat-button routerLink="/Home"> Home </a>
+      <a mat-button routerLink="/Song"> Song </a>
+      <a mat-button routerLink="/About"> About </a>
+      <a mat-button routerLink="/Signup"> Signup </a>
+      <a mat-button routerLink="/Login"> Login </a>
+    </div>
+  </mat-toolbar-row>
 
-<div class="container">
-  <router-outlet></router-outlet>
-</div>
+  <mat-toolbar-row>
+    <span style="font-size: 12px;"> View and create reviews of songs using Music Reviews!</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<router-outlet></router-outlet>

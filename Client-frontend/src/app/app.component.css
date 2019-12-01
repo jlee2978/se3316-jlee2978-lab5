@@ -1,0 +1,5 @@
+#toolbar {width: 100%;}
+#toolbar a {cursor: pointer;}
+#loginId {margin-top:3px;}
+#loginId , #logout {display:inline-block; float: right; font-size: 14px}
+#title {padding: 15px}
