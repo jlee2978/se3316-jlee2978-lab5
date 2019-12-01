@@ -12,6 +12,9 @@ import { FormsModule } from '@angular/forms';
 import { SongComponent } from './song/song.component';
 import { UserComponent } from './user/user.component';
 import { MaterialModule } from './material.module';
+import { ApiService } from './api.service';
+import { AuthenticationService } from './authentication.service';
+import { AdminGuard } from './admin.guard';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,11 @@ import { MaterialModule } from './material.module';
     FormsModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [
+    ApiService,
+    AuthenticationService,
+    AdminGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
