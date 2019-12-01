@@ -3,3 +3,4 @@
 #loginId {margin-top:3px;}
 #loginId , #logout {display:inline-block; float: right; font-size: 14px}
 #title {padding: 15px}
+#login, #signup {float: right;}

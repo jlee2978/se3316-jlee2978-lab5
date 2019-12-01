@@ -15,7 +15,14 @@ import { MaterialModule } from './material.module';
 import { ApiService } from './api.service';
 import { AuthenticationService } from './authentication.service';
 import { AdminGuard } from './admin.guard';
-import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { TokeninterceptorService } from './tokeninterceptor.service';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from './../environments/environment';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 @NgModule({
   declarations: [
@@ -34,12 +41,22 @@ import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common
     BrowserAnimationsModule,
     FormsModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
   providers: [
     ApiService,
     AuthenticationService,
-    AdminGuard
+    AdminGuard,
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },    // https://material.angular.io/components/dialog/overview (specifying global configuration defaults)
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokeninterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
