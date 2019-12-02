@@ -18,6 +18,7 @@ const routes: Routes = [
   { path: 'User', component: UserComponent, canActivate: [AdminGuard] },
   { path: 'Song', component: SongComponent },
   { path: 'Pagenotfound', component: PagenotfoundComponent },
+  { path: '**', component: PagenotfoundComponent },
   { path: 'Signup', component: SignupComponent },
   { path: 'login-email', component: EmailComponent }
 ];

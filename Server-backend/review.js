@@ -9,6 +9,7 @@ var ReviewSchema   = new Schema({
     songid: String,
     note: String,
     rating: String,
+    date: String,
     loginid: String,
 },
 {versionKey: false}      // disables '_v' version property
