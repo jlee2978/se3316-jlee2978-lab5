@@ -2,7 +2,7 @@
 
 html, body { height: 100%; }
 
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-size: 16px}
+body { margin: 0; font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif !important; font-size: 16px}
 
 .container{
     width: 80%;

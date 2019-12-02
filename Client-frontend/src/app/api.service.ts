@@ -54,7 +54,16 @@ export class ApiService {
 		let genres =
 			[
 				{ id: 0, name: 'Blues' },
-				{ id: 1, name: 'Classic Rock' }
+				{ id: 1, name: 'Country' },
+				{ id: 2, name: 'Folk' },
+				{ id: 3, name: 'Electronic' },
+				{ id: 4, name: 'Hip-Hop' },
+				{ id: 5, name: 'Jazz' },
+				{ id: 6, name: 'Pop' },
+				{ id: 7, name: 'R&B' },
+				{ id: 8, name: 'Rap' },
+				{ id: 9, name: 'Rock' },
+				{ id: 10, name: 'Other' }
 			];
 
 		return genres;

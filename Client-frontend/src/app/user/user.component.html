@@ -10,7 +10,7 @@
 	<tbody>
 		<tr *ngFor='let user of users; let i=index'>
 			<td>
-				<input type='text' name='loginid' [(ngModel)]="user.loginid" required>
+				<input type='text' name='loginid' [(ngModel)]="user.loginid" disabled>
 			</td>
 			<td>
 				<select [(ngModel)]="user.role">
