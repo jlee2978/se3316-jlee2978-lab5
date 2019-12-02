@@ -7,7 +7,8 @@
       <a mat-button routerLink="/About"> About </a>
       <a mat-button routerLink="/Song"> Songs </a>
       <a id="signup" mat-button routerLink="/Signup"> Signup </a>
-      <a id="login" mat-button routerLink="/Login"> Login </a>
+      <a mat-button *ngIf="!authService.loggedIn()" id="login" routerLink="/Login"> Login </a>
+      <a mat-button id='logout' (click)="logout()" *ngIf="authService.loggedIn()"> Logout </a>
     </div>
   </mat-toolbar-row>
 

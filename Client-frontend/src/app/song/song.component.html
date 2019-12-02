@@ -1,1 +1,103 @@
-<p>song works!</p>
+<div class='song'>
+	<table id='searchtable' width='60%'>
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Artist</th>
+				<th>Album</th>
+				<th>Year</th>
+				<th>Comment</th>
+				<th>Track</th>
+				<th>Genre</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input type='text' name='title' #titleSearch [(ngModel)]="searchSong.title" required autofocus></td>
+				<td><input type='text' name='artist' [(ngModel)]="searchSong.artist" required></td>
+				<td><input type='text' name='album' [(ngModel)]="searchSong.album" required></td>
+				<td><input type='number' name='Year' [(ngModel)]="searchSong.year" required></td>
+				<td><input type='text' name='comment' [(ngModel)]="searchSong.comment" required></td>
+				<td><input type='number' name='track' [(ngModel)]="searchSong.track" required></td>
+				<td>
+					<select [(ngModel)]="searchSong.genre">
+						<option *ngFor="let genre of genres" value='{{genre.id}}'
+							selected="{{genre.id}} == searchSong.genre">
+							{{genre.name}}</option>
+					</select>
+				</td>
+				<td>
+					<button (click)='getSongs(searchSong)'>Search</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<h5>Search Result:</h5>
+	<table id='songtable' width="60%">
+		<thead>
+			<tr *ngIf="songs.length > 0">
+				<th>Title</th>
+				<th>Artist</th>
+				<th>Album</th>
+				<th style='width:10% !important'>Year</th>
+				<th>Comment</th>
+				<th>Track</th>
+				<th>Genre</th>
+				<th># of Reviews</th>
+				<th *ngIf="isLoggedIn=='Y'">Review</th>
+				<th *ngIf="isLoggedIn=='Y'">Rating</th>
+				<th *ngIf="isLoggedIn == 'Y' && isAdmin == 'Y'">Hidden</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let song of songs; let i=index">
+				<td><input type='text' name='title' [(ngModel)]="song.title" required [disabled]="isLoggedIn !== 'Y'">
+				</td>
+				<td><input type='text' name='artist' [(ngModel)]="song.artist" required [disabled]="isLoggedIn !== 'Y'">
+				</td>
+				<td><input type='text' name='album' [(ngModel)]="song.album" required [disabled]="isLoggedIn !== 'Y'">
+				</td>
+				<td style='width:10% !important'><input type='number' name='Year' [(ngModel)]="song.year" required
+						[disabled]="isLoggedIn !== 'Y'"></td>
+				<td><input type='text' name='comment' [(ngModel)]="song.comment" required
+						[disabled]="isLoggedIn !== 'Y'">
+				</td>
+				<td><input type='number' name='track' [(ngModel)]="song.track" required [disabled]="isLoggedIn !== 'Y'">
+				</td>
+				<td>
+					<select [(ngModel)]="song.genre" [disabled]="isLoggedIn !== 'Y'">
+						<option *ngFor="let genre of genres" value='{{genre.id}}' selected="{{genre.id}} == song.genre">
+							{{genre.name}}</option>
+					</select>
+				</td>
+				<td>
+					<!--input type='text' name='rating' [(ngModel)]="song.rating" disabled
+						style="display:inline-block; width:50% !important"-->
+					<button *ngIf="song._id !== null" (click)="showReviews(song)">{{song.rating}}</button>
+				</td>
+				<td *ngIf="isLoggedIn=='Y'"><input type='text' name='note' [(ngModel)]="song.note" required
+						[disabled]="isLoggedIn !== 'Y'"></td>
+				<td *ngIf="isLoggedIn=='Y'"><input type='number' name='review_rating' [(ngModel)]="song.review_rating"
+						required [disabled]="isLoggedIn !== 'Y'">
+				</td>
+				<td *ngIf="isLoggedIn == 'Y' && isAdmin == 'Y'">
+					<select [(ngModel)]="song.hidden" name="hidden">
+						<option value='Y' selected="song.hidden=='Y'">
+							Y
+						</option>
+						<option value='N' selected="song.hidden =='N'">
+							N
+						</option>
+					</select>
+				</td>
+				<td>
+					<button *ngIf="isLoggedIn=='Y'"
+						(click)='saveSong(song, i)'>{{song._id == null? 'Create': 'Save'}}</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<span *ngIf='errorMessage' class='error'>Error: {{errorMessage}}</span>

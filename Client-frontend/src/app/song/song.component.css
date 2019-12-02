@@ -1,0 +1,53 @@
+div.song {
+    overflow-x:auto;
+    width:100%;
+    margin:auto; 
+    margin-top:20px;}
+  
+  #searchtable, #songtable {margin-top: 20px;}
+  
+  table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+  
+  table input {border-radius: 5%}
+  
+  table button {
+      cursor: pointer !important;
+      border-radius: 10%;
+      color: #fff;
+      background-color:#007bff;
+      border-color:#007bff;
+  }
+  
+  table select {
+    background: #fff;
+    margin-top:2px;
+      color: #495057;
+      border: 1px solid #ced4da;
+    border-radius:5%;
+  }
+  
+  table tr th:nth-child(4), table tr td:nth-child(4),
+  table tr th:nth-child(6), table tr td:nth-child(6),
+  table tr th:nth-child(8), table tr td:nth-child(8),
+  table tr th:nth-child(10), table tr td:nth-child(10) {width: 5% !important;}
+  
+  h5 {margin-left:10px;}
+  
+  .error {color: red}
+  
+  
+  table input, table select {width: 100%}
