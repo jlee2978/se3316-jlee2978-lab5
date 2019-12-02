@@ -1,1 +1,21 @@
-<p>email works!</p>
+<form id="emaillogin" [formGroup]="emailForm">
+    <fieldset>
+      <legend>Email Login: </legend>
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="input">
+          <input matInput id='email' #emailInput type="email" placeholder="email" formControlName="email"
+            class="form-control" required autofocus>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="input">
+          <input matInput type="password" placeholder="password" class="form-control" formControlName="password" required>
+        </mat-form-field>
+        <br />
+        <mat-label class="error">{{errorMessage}}</mat-label>
+        <mat-label class="success">{{successMessage}}</mat-label>
+      </div>
+      <button mat-button type="submit" (click)="loginEmail(emailForm.value)" class="btn btn-default">Login</button>
+  
+    </fieldset>
+  </form>
