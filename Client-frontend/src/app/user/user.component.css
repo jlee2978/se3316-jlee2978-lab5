@@ -1,0 +1,39 @@
+table {width:60%; 
+    border: 1px solid black;
+   margin:auto; margin-top:20px;
+  }
+table tr td {margin-right: 10px;}
+table th {
+border: 1px solid black; padding: none;
+background: #2861ac;
+color: #fff
+}
+
+table th {background-color: #2861ac;}
+
+
+table input[type='text'], table select {width: 100%;}
+
+table tr th:nth-child(1), table tr td:nth-child(1) {width: 40%;}
+table tr th:nth-child(2), table tr td:nth-child(2) {width: 10%;}
+table tr th:nth-child(3), table tr td:nth-child(3) {width: 10%;}
+table tr th:nth-child(4), table tr td:nth-child(4) {width: 10%;}
+
+table {margin-top: 20px;}
+table input {border-radius: 5%}
+table button {
+cursor: pointer;
+border-radius: 10%;
+color: #fff;
+background-color:#2861ac;
+border-color:#007bff;
+}
+
+table select {
+background: #fff;
+color: #495057;
+border: 1px solid #ced4da;
+border-radius:10%;
+}
+
+.error {color: red}

@@ -25,6 +25,7 @@ import { environment } from './../environments/environment';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { EmailComponent } from './email/email.component';
 import {routes} from './app.routes';
+import { ReviewdialogComponent } from './reviewdialog/reviewdialog.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {routes} from './app.routes';
     PagenotfoundComponent,
     SongComponent,
     UserComponent,
-    EmailComponent
+    EmailComponent,
+    ReviewdialogComponent
   ],
   imports: [
     BrowserModule,

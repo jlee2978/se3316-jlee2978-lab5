@@ -1,1 +1,33 @@
-<p>user works!</p>
+<table>
+	<thead>
+		<tr>
+			<th>Login Id</th>
+			<th>Role</th>
+			<th>Status</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor='let user of users; let i=index'>
+			<td>
+				<input type='text' name='loginid' [(ngModel)]="user.loginid" required>
+			</td>
+			<td>
+				<select [(ngModel)]="user.role">
+					<option value='admin' selected="'{{user.role}}' == 'admin'">Admin</option>
+					<option value='user' selected="'{{user.role}}' == 'user'">User</option>
+				</select>
+			</td>
+			<td>
+				<select [(ngModel)]="user.status">
+					<option value='A' selected="'{{user.status}}' == 'admin'">Active</option>
+					<option value='I' selected="'{{user.status}}' == 'user'">Inactive</option>
+				</select>
+			</td>
+			<td>
+				<button (click)='saveUser(user)'>Save</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<span *ngIf='errorMessage' class='error'>Error: {{errorMessage}}</span>
