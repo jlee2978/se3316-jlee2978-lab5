@@ -124,6 +124,7 @@ export class SongComponent implements OnInit {
       this.apiService.updateSong(song).subscribe(
         response => {
           this.response = response;
+          this.songs[i] = response.song;
           if (response.error.code !== 0) {
             this.errorMessage = response.error.message;
           }
@@ -132,7 +133,7 @@ export class SongComponent implements OnInit {
     }
 
     this.songs[i].note = null;
-    this.songs[i].rating = null;
+    this.songs[i].review_rating = null;
   }
 
   // Sanitize data

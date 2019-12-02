@@ -1,1 +1,35 @@
-<p>reviewdialog works!</p>
+<div mat-dialog-content>
+    <h2>Song Reviews</h2>
+    <hr>
+    <h3>Title: {{data.song.title}}</h3>
+    <h3>Artist: {{data.song.artist}}</h3>
+    <h3>Album: {{data.song.album}}</h3>
+    <h3>Year: {{data.song.year}}</h3>
+    <table width='100%'>
+      <thead>
+        <th>Review</th>
+        <th>Rating</th>
+        <!--th>Date</th-->
+        <th>Created By</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let review of data.reviews; let i = index">
+          <td>
+            {{review.note}}
+          </td>
+          <td>
+            {{review.rating}}
+          </td>
+          <!--td>
+            {{review.date}}
+          </td-->
+          <td>
+            {{review.loginid}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)='dismiss()'>OK</button>
+  </div>

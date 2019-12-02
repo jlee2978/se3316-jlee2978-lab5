@@ -54,6 +54,9 @@ import { ReviewdialogComponent } from './reviewdialog/reviewdialog.component';
     AngularFireDatabaseModule,
     routes
   ],
+  entryComponents: [
+    ReviewdialogComponent
+  ],
   providers: [
     ApiService,
     AuthenticationService,

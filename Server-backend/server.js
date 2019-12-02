@@ -605,7 +605,7 @@ router.route('/updatesong/:songid')
 					// return the response
 					// note: we don't need the song object
 					// as it is in the front end page
-					res.json({ error: error });
+					res.json({ error: error, song: song });
 				});
 
 			});
