@@ -8,7 +8,7 @@ import { EmailComponent } from './email/email.component';
 import { SignupComponent } from './signup/signup.component';
 import { SongComponent } from './song/song.component';
 import { UserComponent } from './user/user.component';
-// import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
+import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 
 import { AdminGuard } from './admin.guard';
 
@@ -21,7 +21,7 @@ export const router: Routes = [
     { path: 'song', component: SongComponent },
     { path: 'about', component: AboutComponent },
     { path: 'user', component: UserComponent, canActivate: [AdminGuard] },
-    // { path: '**', component: PageNotFoundComponent }
+    { path: '**', component: PageNotFoundComponent }
 
 ]
 

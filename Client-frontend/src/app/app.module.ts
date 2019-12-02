@@ -7,7 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SongComponent } from './song/song.component';
 import { UserComponent } from './user/user.component';
@@ -34,7 +34,7 @@ import { ReviewdialogComponent } from './reviewdialog/reviewdialog.component';
     SignupComponent,
     AboutComponent,
     HomeComponent,
-    PagenotfoundComponent,
+    PageNotFoundComponent,
     SongComponent,
     UserComponent,
     EmailComponent,
