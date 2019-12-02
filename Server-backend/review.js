@@ -10,7 +10,9 @@ var ReviewSchema   = new Schema({
     note: String,
     rating: String,
     loginid: String,
-});
+},
+{versionKey: false}      // disables '_v' version property
+);
 
 // export the module so other js modules can use it when the require it
 module.exports = mongoose.model('Review', ReviewSchema);

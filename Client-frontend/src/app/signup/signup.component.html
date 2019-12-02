@@ -1,1 +1,20 @@
-<p>signup works!</p>
+<form id="signup" [formGroup]="registerForm">
+    <fieldset>
+      <legend>Create an Account</legend>
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="input">
+          <input matInput type="email" #emailInput placeholder="Email" formControlName="email" class="form-control" required autofocus>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="input">
+          <input matInput type="password" placeholder="Password" class="form-control" formControlName="password" required>
+        </mat-form-field>
+        <br/>
+        <mat-label class="error">{{errorMessage}}</mat-label>
+        <mat-label class="success">{{successMessage}}</mat-label>
+      </div>
+  
+      <button mat-button type="submit" (click)="signUp(registerForm.value)" class="btn btn-default">Sign Up</button>
+    </fieldset>
+  </form>

@@ -10,7 +10,9 @@ var UserSchema   = new Schema({
     password: String,
     role: String,           // role is either a regular user or an admin
     status: String,         // status indicates whether they are active or deactivated
-});
+},
+{versionKey: false}      // disables '_v' version property
+);
 
 // export the module so other js modules can use it when the require it
 module.exports = mongoose.model('User', UserSchema);

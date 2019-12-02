@@ -24,6 +24,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from './../environments/environment';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { EmailComponent } from './email/email.component';
+import {routes} from './app.routes';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { EmailComponent } from './email/email.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    routes
   ],
   providers: [
     ApiService,

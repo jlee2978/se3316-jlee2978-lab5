@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
           this.errorMessage = 'Your account is deactivated, please contact site administrator';
         }
         else {
-          this.router.navigateByUrl('/song');
+          this.router.navigateByUrl('/Song');
         }
       }
 

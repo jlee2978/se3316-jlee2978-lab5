@@ -1,0 +1,24 @@
+#signup {width:50%; margin-left: 20%; padding: 100px; text-align: center;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%)}
+
+#signup button, #signup div {margin-top: 20px;}
+
+button {
+	cursor: pointer !important;
+	border-radius: 10%;
+	color: #fff;
+	background-color:#007bff;
+	border-color:#007bff;
+}
+
+#signup input {  min-width: 150px;
+    max-width: 500px;
+    width: 100%;}
+	
+.error {color: red}	
+
+.input {width: 37%;
+margin: auto;}

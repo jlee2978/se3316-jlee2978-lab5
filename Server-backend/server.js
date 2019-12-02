@@ -31,6 +31,9 @@ app.use(bodyParser.json());
 // include the mongoose object
 var mongoose = require('mongoose');
 
+// get rid of the deprecation warning in the command prompt
+mongoose.set('useUnifiedTopology', true);
+
 // connect to the mongoDB "musicplaylist"
 // which is set up according to the lab pdf
 mongoose.connect("mongodb+srv://jlee2978:jeffrey3316uwo@cluster0-fyxo4.mongodb.net/MusicReviews?retryWrites=true&w=majority",
