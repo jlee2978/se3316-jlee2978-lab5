@@ -23,6 +23,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from './../environments/environment';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { EmailComponent } from './email/email.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     HomeComponent,
     PagenotfoundComponent,
     SongComponent,
-    UserComponent
+    UserComponent,
+    EmailComponent
   ],
   imports: [
     BrowserModule,

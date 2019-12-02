@@ -1,0 +1,12 @@
+#login {width:50%; 
+    margin-left: 20%; 
+    padding: 100px; 
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);}
+
+#login span, #login div {margin-top: 20px;}
+
+.error {color: red}

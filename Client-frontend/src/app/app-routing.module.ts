@@ -8,6 +8,7 @@ import {PagenotfoundComponent} from './pagenotfound/pagenotfound.component';
 import {SignupComponent} from './signup/signup.component';
 import {SongComponent} from './song/song.component';
 import { AdminGuard } from './admin.guard';
+import { EmailComponent } from './email/email.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'Song', component: SongComponent },
   { path: 'Pagenotfound', component: PagenotfoundComponent },
   { path: 'Signup', component: SignupComponent },
+  { path: 'login-email', component: EmailComponent }
 ];
 
 @NgModule({
@@ -25,3 +27,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

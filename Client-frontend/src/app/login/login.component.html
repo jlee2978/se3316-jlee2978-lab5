@@ -1,1 +1,17 @@
-<p>login works!</p>
+<div id="login">
+    <fieldset>
+        <legend>Login</legend>
+        <img src="assets/loginSymbol.png" style="width:3em; height:3em;">
+
+        <span class="error" *ngIf="error">{{error}}</span>
+
+        <div>
+            <button mat-button (click)="loginGoogle()" id="google">Google</button>
+        </div>
+
+        <div>
+            <button mat-button routerLink="/login-email" id="email">Email</button>
+        </div>
+    </fieldset>
+</div>
+<span *ngIf='errorMessage' class='error'>Error: {{errorMessage}}</span>

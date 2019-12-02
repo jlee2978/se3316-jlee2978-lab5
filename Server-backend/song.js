@@ -19,4 +19,4 @@ var SongSchema   = new Schema({
 });
 
 // export the module so other js modules can use it when the require it
-module.exports = mongoose.model('User', BearSchema);
+module.exports = mongoose.model('Song', SongSchema);
