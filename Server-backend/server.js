@@ -151,7 +151,12 @@ router.route('/createuser')
         // user info is POSTed in the request body
         // the corresponding properties are assigned to the user
         user.loginid = req.body.loginid;
-        user.password = passwordHash.generate(req.body.password);       // generate a hash of the password argument
+
+        // generate password hash if there is a password in the login (Google login will not pass a password)
+        if (req.body.password) {
+            user.password = passwordHash.generate(req.body.password);
+        }
+
         user.role = req.body.role;
         user.status = req.body.status;
 

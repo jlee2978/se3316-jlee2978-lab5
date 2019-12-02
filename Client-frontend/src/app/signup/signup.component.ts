@@ -74,7 +74,7 @@ export class SignupComponent implements OnInit {
         localStorage.setItem('userstatus', user.status);
 
         this.authService.setUser(user);
-        this.router.navigateByUrl('/Song');
+        this.router.navigateByUrl('/song');
 
       }, error => {
         this.errorMessage = error;
